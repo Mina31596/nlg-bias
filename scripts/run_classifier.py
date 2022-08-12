@@ -307,7 +307,7 @@ def evaluate(args, model, tokenizer, labels, pad_token_label_id, mode, prefix=""
 	preds_list = []
 	
 	print(pad_token_label_id)
-	print("out_ids", out_label_ids, "shape out_ids:" out_label_ids.shape)
+	print("out_ids", out_label_ids, "shape out_ids:", out_label_ids.shape)
 	
 	for i in range(out_label_ids.shape[0]):
 		if out_label_ids[i] != pad_token_label_id:
