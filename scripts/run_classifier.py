@@ -276,9 +276,11 @@ def evaluate(args, model, tokenizer, labels, pad_token_label_id, mode, prefix=""
 	model.eval()
 	for batch in tqdm(eval_dataloader, desc="Evaluating"):
 		batch = tuple(t.to(args.device) for t in batch)
+		print(batch)
 
 		with torch.no_grad():
 			inputs = {"input_ids": batch[0], "attention_mask": batch[1], "labels": batch[3]}
+			print(inputs)
 			if args.model_type != "distilbert":
 				inputs["token_type_ids"] = (
 					batch[2] if args.model_type in ["bert", "xlnet"] else None
@@ -290,6 +292,7 @@ def evaluate(args, model, tokenizer, labels, pad_token_label_id, mode, prefix=""
 				tmp_eval_loss = tmp_eval_loss.mean()  # mean() to average on multi-gpu parallel evaluating
 
 			eval_loss += tmp_eval_loss.item()
+			
 		nb_eval_steps += 1
 		if preds is None:
 			preds = logits.detach().cpu().numpy()
@@ -302,20 +305,23 @@ def evaluate(args, model, tokenizer, labels, pad_token_label_id, mode, prefix=""
 	preds = np.argmax(preds, axis=1)
 
 	label_map = {i: label for i, label in enumerate(labels)}
-
+	
+	print("label_map", label_map)
+	
 	out_label_list = []
 	preds_list = []
 	
 	print(pad_token_label_id)
 	print("out_ids", out_label_ids, "shape out_ids:", out_label_ids.shape)
 	
-	for i in range(out_label_ids.shape[0]):
+	for i in range(out_label_ids.shape[0]): # I guess they do not want to cut certain outputs (something to do with masked words?) for the eval
 		if out_label_ids[i] != pad_token_label_id:
 			out_label_list.append(label_map[out_label_ids[i]])
 			preds_list.append(label_map[preds[i]])
 	
 	print("out_label_list: ",out_label_list)
 	print("preds_list: ",preds_list)
+	
 	results = {
 		"loss": eval_loss,
 		"accuracy": accuracy_score(out_label_list, preds_list),
