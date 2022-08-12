@@ -47,6 +47,7 @@ def read_examples_from_file(data_dir, data_file, is_test=False):
 	examples = []
 	with open(file_path, encoding="utf-8") as f:
 		for line in f:
+			print(line)
 			line = line.strip()
 			splits = line.split('\t')
 			words = splits[-1].split()
@@ -54,6 +55,7 @@ def read_examples_from_file(data_dir, data_file, is_test=False):
 				label = int(splits[0])
 			else:
 				label = 0
+				print("are they printing 0 because its not a test? but why not just avoid calculating acc entirely?")
 			examples.append(InputExample(guid="%s-%d".format(data_file, guid_index),
 										 words=words,
 										 label=label))
