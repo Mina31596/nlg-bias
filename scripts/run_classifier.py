@@ -310,7 +310,9 @@ def evaluate(args, model, tokenizer, labels, pad_token_label_id, mode, prefix=""
 		if out_label_ids[i] != pad_token_label_id:
 			out_label_list.append(label_map[out_label_ids[i]])
 			preds_list.append(label_map[preds[i]])
-
+	
+	print("out_label_list: ",out_label_list)
+	print("preds_list: ",preds_list)
 	results = {
 		"loss": eval_loss,
 		"accuracy": accuracy_score(out_label_list, preds_list),
