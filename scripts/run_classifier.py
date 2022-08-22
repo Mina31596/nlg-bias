@@ -581,6 +581,7 @@ def main():
 
 	# Prepare regard classification task
 	labels = get_labels(model_version=args.model_version)
+	print("labels", labels)
 	num_labels = len(labels)
 	# Use cross entropy ignore index as padding label id so that only real label ids contribute to the loss later
 	pad_token_label_id = CrossEntropyLoss().ignore_index
