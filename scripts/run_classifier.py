@@ -389,8 +389,9 @@ def load_and_cache_examples(args, tokenizer, labels, pad_token_label_id, data_fi
 	return dataset
 
 
-def main():
+def main(string_args):
 	parser = argparse.ArgumentParser()
+	
 
 	# Required parameters
 	parser.add_argument(
@@ -527,7 +528,10 @@ def main():
 	parser.add_argument("--local_rank", type=int, default=-1, help="For distributed training: local_rank")
 	parser.add_argument("--server_ip", type=str, default="", help="For distant debugging.")
 	parser.add_argument("--server_port", type=str, default="", help="For distant debugging.")
-	args = parser.parse_args()
+	
+	if string_args not None:
+		args = parser.parse_args(string_args.split())
+
 	print(args)
 
 	if (
