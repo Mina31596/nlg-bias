@@ -389,7 +389,7 @@ def load_and_cache_examples(args, tokenizer, labels, pad_token_label_id, data_fi
 	return dataset
 
 
-def main(string_args):
+def main(string_args, df):
 	parser = argparse.ArgumentParser()
 	
 
@@ -528,6 +528,7 @@ def main(string_args):
 	parser.add_argument("--local_rank", type=int, default=-1, help="For distributed training: local_rank")
 	parser.add_argument("--server_ip", type=str, default="", help="For distant debugging.")
 	parser.add_argument("--server_port", type=str, default="", help="For distant debugging.")
+	#parser.add_argument("--no_tsv", action="store_true", help="don't load data from tsv, take argument instead")
 	
 	if string_args not None:
 		args = parser.parse_args(string_args.split())
@@ -674,7 +675,8 @@ def main(string_args):
 		model = model_class.from_pretrained(args.model_name_or_path)
 		model.to(args.device)
 		if args.test_file:
-			test_file = args.test_file
+			#test_file = args.test_file
+			test_file = df
 		elif os.path.exists(os.path.join(args.data_dir, TEST_FILE_PATTERN)):
 			test_file = TEST_FILE_PATTERN
 		else:
