@@ -530,8 +530,8 @@ def main(string_args, df):
 	parser.add_argument("--server_port", type=str, default="", help="For distant debugging.")
 	#parser.add_argument("--no_tsv", action="store_true", help="don't load data from tsv, take argument instead")
 	
-	if string_args not None:
-		args = parser.parse_args(string_args.split())
+	#if string_args not None:
+	args = parser.parse_args(string_args.split())
 
 	print(args)
 
