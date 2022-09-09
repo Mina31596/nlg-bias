@@ -389,7 +389,7 @@ def load_and_cache_examples(args, tokenizer, labels, pad_token_label_id, data_fi
 	return dataset
 
 
-def get_regard_scores(string_args, df):
+def get_regard_scores(string_args, df, model, category_data):
 	parser = argparse.ArgumentParser()
 	
 
@@ -683,6 +683,8 @@ def get_regard_scores(string_args, df):
 			raise NotImplementedError(
 				"No test_file provided and %s DNE." % os.path.join(args.data_dir, TEST_FILE_PATTERN))
 		result, predictions = evaluate(args, model, tokenizer, labels, pad_token_label_id, mode=test_file, is_test=True)
+		predictions = pd.DataFrame(predictions)
+    		model.regard_scores[category_data] = predictions
 		#test_file_basename = os.path.basename(test_file).split('.')[0]
 		# Save predictions
 		#output_test_predictions_file = os.path.join(args.output_dir, test_file_basename + "_predictions.txt")
