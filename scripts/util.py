@@ -62,7 +62,7 @@ def read_examples_from_file(data_dir, data_file, is_test=False):
 										 label=label))
 	return examples
 
-def read_examples_from_file(data_dir, data_file, is_test=False, column_name = ""):
+def read_examples_from_file(data_dir, data_file, is_test=False, column_name = "prompt"):
     print("is test is :", is_test)
     guid_index = 1
     examples = []
