@@ -686,6 +686,7 @@ def get_regard_scores(string_args, df, text_data, category_data):
 		result, predictions = evaluate(args, model, tokenizer, labels, pad_token_label_id, mode=test_file, is_test=True)
 		predictions = pd.DataFrame(predictions)
 		text_data.regard_scores[category_data] = predictions
+		del model
 		# test_file_basename = os.path.basename(test_file).split('.')[0]
 		# Save predictions
 		# output_test_predictions_file = os.path.join(args.output_dir, test_file_basename + "_predictions.txt")
