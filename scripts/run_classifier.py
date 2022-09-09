@@ -41,7 +41,7 @@ from transformers import (
 	RobertaTokenizer,
 	get_linear_schedule_with_warmup,
 )
-from util import convert_examples_to_features, get_labels, read_examples_from_file
+from nlgbias.scripts.util import convert_examples_to_features, get_labels, read_examples_from_file
 
 
 try:
