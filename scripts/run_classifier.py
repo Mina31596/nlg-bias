@@ -389,7 +389,7 @@ def load_and_cache_examples(args, tokenizer, labels, pad_token_label_id, data_fi
 	return dataset
 
 
-def main(string_args, df):
+def predict_regard(string_args, df):
 	parser = argparse.ArgumentParser()
 	
 
