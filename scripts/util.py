@@ -5,7 +5,7 @@ import logging
 import numpy as np
 import os
 
-from constants import *
+from nlgbias.scripts.constants import *
 
 logger = logging.getLogger(__name__)
 
