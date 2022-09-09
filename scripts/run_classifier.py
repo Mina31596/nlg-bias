@@ -371,8 +371,8 @@ def load_and_cache_examples(args, tokenizer, labels, pad_token_label_id, data_fi
 			pad_token_label_id=pad_token_label_id,
 		)
 		if args.local_rank in [-1, 0]:
-			logger.info("Saving features into cached file %s", cached_features_file)
-			torch.save(features, cached_features_file)
+			#logger.info("Saving features into cached file %s", cached_features_file)
+			#torch.save(features, cached_features_file)
 
 	if args.local_rank == 0 and not evaluate:
 		torch.distributed.barrier()  # Make sure only the first process in distributed training process the dataset, and the others will use the cache
@@ -383,7 +383,7 @@ def load_and_cache_examples(args, tokenizer, labels, pad_token_label_id, data_fi
 	all_segment_ids = torch.tensor([f.segment_ids for f in features], dtype=torch.long)
 	all_label_ids = torch.tensor([f.label_id for f in features], dtype=torch.long)
 	
-	print("label_ids", all_label_ids)
+	#print("label_ids", all_label_ids)
 
 	dataset = TensorDataset(all_input_ids, all_input_mask, all_segment_ids, all_label_ids)
 	return dataset
