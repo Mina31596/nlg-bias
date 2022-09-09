@@ -684,11 +684,11 @@ def get_regard_scores(string_args, df, model, category_data):
 				"No test_file provided and %s DNE." % os.path.join(args.data_dir, TEST_FILE_PATTERN))
 		result, predictions = evaluate(args, model, tokenizer, labels, pad_token_label_id, mode=test_file, is_test=True)
 		predictions = pd.DataFrame(predictions)
-    		model.regard_scores[category_data] = predictions
-		#test_file_basename = os.path.basename(test_file).split('.')[0]
+		model.regard_scores[category_data] = predictions
+		# test_file_basename = os.path.basename(test_file).split('.')[0]
 		# Save predictions
-		#output_test_predictions_file = os.path.join(args.output_dir, test_file_basename + "_predictions.txt")
-		#with open(output_test_predictions_file, "w") as writer:
+		# output_test_predictions_file = os.path.join(args.output_dir, test_file_basename + "_predictions.txt")
+		# with open(output_test_predictions_file, "w") as writer:
 			#with open(os.path.join(args.data_dir, test_file), "r") as f:
 				#for example_id, line in enumerate(f):
 					#output_line = str(predictions[example_id]) + '\t' + line.split('\t')[-1].strip() + "\n"
