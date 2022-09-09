@@ -62,6 +62,44 @@ def read_examples_from_file(data_dir, data_file, is_test=False):
 										 label=label))
 	return examples
 
+def read_examples_from_file(data_dir, data_file, is_test=False, column_name = ""):
+    print("is test is :", is_test)
+    guid_index = 1
+    examples = []
+    if type(data_file) == str:
+        file_path = os.path.join(data_dir, data_file)
+        with open(file_path, encoding="utf-8") as f:
+            for line in f:
+                #print(line)
+                line = line.strip()
+                splits = line.split('\t')
+                words = splits[-1].split()
+                if not is_test:
+                    label = int(splits[0])
+                else:
+                    label = 0
+                    #they are adding a label for files which are not test files, so they do not have a label")
+                examples.append(InputExample(guid="%s-%d".format(data_file, guid_index),
+                                             words=words,
+                                            label=label))
+    else:
+        #if not df or not column_name:
+            #print("you need to pass a dataframe and column name")
+        #else:
+        df = data_file
+        words_ls = df[column_name].tolist()
+        for line in words_ls:
+            line = line.strip()
+            splits = line.split('\t')
+            words = splits[-1].split()
+            label = 0
+                    # adding a label cause my files which are not test files, so they do not have a label, need one")
+            examples.append(InputExample(guid="%s-%d".format(data_file, guid_index),
+										 words=words,
+										label=label))
+    return examples
+
+
 
 def convert_examples_to_features(examples,
 								 label_list,
